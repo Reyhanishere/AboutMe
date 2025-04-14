@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post Writer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <style>
+
+    h1 {
+      font-family: "Roboto Mono", monospace;
+    }
+
+</style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#BBD8A3]">
+  <h1 class=" mb-5 text-4xl mx-auto text-center bg-[#6F826A] text-white p-6">Write a Post!</h1>
+  <div class="flex">
+    <form id="postForm" class="w-1/2 p-5">
+      <h2  class=" text-xl text-center">POST DETAILS</h2>
+      <input class="bg-[#F0F1C5] border-2 border-grey-700 w-full  mt-2" type="text" id="title" placeholder="Post title" required><br>
+      <textarea class="bg-[#F0F1C5] border-2 border-grey-700 mt-2 w-full " id="content" placeholder="Write your post here..." rows="10" required></textarea><br>
+      <div class="markdown-help ">*You can use Markdown! Example: `**bold**`, `_italic_`, `# Heading`*</div>
+      <button class="bg-[#F0F1C5] border-2 border-grey-700 mt-2 w-1/2 mx-auto" type="submit">Add Post</button>
+    </form>
+    <div class="w-1/2 p-5">
+    <h2  class=" text-xl text-center">JSON DATA</h2>
+    <textarea id="output" rows="20" class="w-full bg-[#F0F1C5] border-2 border-grey-700 mt-2 "></textarea>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js"></script>
+  <script>
+    let posts = [];
+
+    const form = document.getElementById('postForm');
+    const output = document.getElementById('output');
+
+    function updateOutput() {
+      output.value = JSON.stringify(posts, null, 2);
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('content').value.trim();
+      const date = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+      if (!title || !content) return;
+
+      posts.unshift({ title, content, date });
+      updateOutput();
+
+      form.reset();
+    });
+
+    // Initialize Markdown converter (using Showdown.js)
+const converter = new showdown.Converter();
+
+// Get the input and preview elements
+const markdownInput = document.getElementById('markdown-input');
+const markdownPreview = document.getElementById('markdown-preview');
+const savePostButton = document.getElementById('save-post');
+
+// Update the preview whenever the user types in the textarea
+markdownInput.addEventListener('input', () => {
+    const markdownText = markdownInput.value;
+    const htmlContent = converter.makeHtml(markdownText);
+    markdownPreview.innerHTML = htmlContent;
+});
+
+// Save the post to localStorage or a file (for simplicity, localStorage is used here)
+savePostButton.addEventListener('click', () => {
+    const markdownText = markdownInput.value;
+    const post = {
+        date: new Date().toLocaleString(),
+        content: markdownText
+    };
+
+    let posts = JSON.parse(localStorage.getItem('posts')) || [];
+    posts.push(post);
+    localStorage.setItem('posts', JSON.stringify(posts));
+
+    alert('Post saved!');
+});
+
+  </script>
+  
+</body>
+</html>

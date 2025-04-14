@@ -1,0 +1,11 @@
+1. My black: #201912
+2. My yellow: #f1c93b
+3. My white: #e8dfd0
+4. My red: #e8dfd0
+5. My brown: #ac7c40
+6. My pink: #d0b68b 
+7. My gold: #ce9b37
+8. My green: #a9964b 
+9. My grey-blue: #747c74
+10. My gold-yellow: #e0ac14
+<If anyone see this in my github, the names are made by me so if I say pink, it is pink,my pink.>

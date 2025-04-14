@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My peculiar Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+MX+Guides&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <style>
+
+    .head , footer{
+      background-color: #f1c93b;
+      width: 100%;
+      margin: 0;
+    }
+
+    h1 {
+      font-family: "Playwrite MX Guides", cursive;
+    }
+    .intro , footer, h3{
+      font-family: "Roboto Mono", monospace;
+    }
+
+</style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-700" >
+  <div class="head p-8 w-screen h-auto ">
+    <h1 class="text-center font-bold text-6xl leading-[2]">My Peculiar Blog</h1>
+  </div>
+   
+  <div class="intro text-center m-5 dark:text-white md:px-32 my-10">
+    <h2 class="text-2xl">
+      Bonjour et bienvenue sur <s>mon blog</s> ma vie en désordre.
+    </h2>
+    <p class="m-2">
+      I have a messy life, a busy schedule and a thousand things that I'm enthusiastic about and I'd like to pursue. I hope writing a blog and talking about them help me keep track of everything.
+    </p>
+  </div>
+  
+  <div id="posts" class="post-div mx-auto w-4/5 my-20"></div>
+
+  <footer class="">
+  <img src="./Footer.JPG" alt="poster of movie 'Little Miss Sunshine' directed by Jonathan Dayton and Valerie Faris " class="object-cover object-center mx-auto">
+  <hr class="border-black">
+  <p class="p-1 text-center">Made by Reyhaneh 2025</p>
+  </footer>
+   
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch('posts.json')
+        .then(response => response.json())
+        .then(posts => {
+          const postsContainer = document.getElementById('posts');
+          
+          posts.forEach(data => {
+            const postBox = document.createElement("div");
+            postBox.className = "rounded-xl p-4 my-3 border-[3px]";
+            postBox.style.backgroundColor = data.color;
+            postBox.style.borderColor = data.color;
+
+            const titleElement = document.createElement("h3");
+            titleElement.textContent = "Title: " + data.title;
+            titleElement.className = "text-xl my-3"
+
+            const contentElement = document.createElement("p");
+            contentElement.textContent = data.content;
+            const dateElement = document.createElement("p");
+            dateElement.textContent = "date: " + data.date;
+
+            postBox.appendChild(titleElement);
+            postBox.appendChild(contentElement);
+            postBox.appendChild(dateElement);
+
+            postsContainer.appendChild(postBox);
+        
+
+        });
+      })
+      .catch(error => console.error("Error fetching posts:", error));
+  });
+
+
+ 
+
+  </script>
+</body>
+
+</html>
