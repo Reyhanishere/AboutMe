@@ -96,51 +96,38 @@
 
   </script> -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Fetch posts.json from your GitHub repository (ensure the URL is correct)
-    fetch('https://raw.githubusercontent.com/Reyhanishere/AboutMe/refs/heads/main/posts.json')
-      .then(response => response.json())
-      .then(posts => {
-        // Check if the data is fetched correctly
-        console.log(posts);
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('posts.json')
+    .then(response => response.json())
+    .then(posts => {
+      const postsContainer = document.getElementById('posts');
+      
+      posts.forEach(data => {
+        const postBox = document.createElement("div");
+        postBox.className = "rounded-xl p-4 my-3 border-[3px] shadow-lg";
+        postBox.style.backgroundColor = data.color;
+        postBox.style.borderColor = data.color;
 
-        const postsContainer = document.getElementById('posts');
-        
-        // Iterate through each post and create the elements
-        posts.forEach(data => {
-          const postBox = document.createElement("div");
-          postBox.className = "rounded-xl p-4 my-3 border-[3px] shadow-lg";
-          postBox.style.backgroundColor = data.color;
-          postBox.style.borderColor = data.color;
+        const titleElement = document.createElement("h3");
+        titleElement.innerHTML = "Title: " + data.title; // Using innerHTML to handle HTML in title
+        titleElement.className = "text-xl my-3"
 
-          // Create title element
-          const titleElement = document.createElement("h3");
-          titleElement.textContent = "Title: " + data.title;
-          titleElement.className = "text-xl my-3";
+        const contentElement = document.createElement("p");
+        contentElement.innerHTML = data.content; // Ensure this line works correctly for HTML content
+        const dateElement = document.createElement("p");
+        dateElement.innerHTML = "date: " + data.date;
+        dateElement.className = "text-sm mt-4 font-light";
 
-          // Create content element
-          const contentElement = document.createElement("p");
-          contentElement.textContent = data.content;
+        postBox.appendChild(titleElement);
+        postBox.appendChild(contentElement);
+        postBox.appendChild(dateElement);
 
-          // Create date element
-          const dateElement = document.createElement("p");
-          dateElement.textContent = "Date: " + data.date;
-          dateElement.className = "text-sm mt-4 font-light";
-
-          // Append elements to postBox
-          postBox.appendChild(titleElement);
-          postBox.appendChild(contentElement);
-          postBox.appendChild(dateElement);
-
-          // Append postBox to the posts container
-          postsContainer.appendChild(postBox);
-        });
-      })
-      .catch(error => {
-        // Log any errors if the fetch fails
-        console.error("Error fetching posts:", error);
+        postsContainer.appendChild(postBox);
       });
-  });
+    })
+    .catch(error => console.error("Error fetching posts:", error));
+});
+
 </script>
 
   
