@@ -62,18 +62,19 @@
           
           posts.forEach(data => {
             const postBox = document.createElement("div");
-            postBox.className = "rounded-xl p-4 my-3 border-[3px]";
+            postBox.className = "rounded-xl p-4 my-3 border-[3px] shadow-lg";
             postBox.style.backgroundColor = data.color;
             postBox.style.borderColor = data.color;
 
             const titleElement = document.createElement("h3");
-            titleElement.textContent = "Title: " + data.title;
+            titleElement.innerHTML = "Title: " + data.title;
             titleElement.className = "text-xl my-3"
 
             const contentElement = document.createElement("p");
-            contentElement.textContent = data.content;
+            contentElement.innerHTML = data.content;
             const dateElement = document.createElement("p");
-            dateElement.textContent = "date: " + data.date;
+            dateElement.innerHTML = "date: " + data.date;
+            dateElement.className = "text-sm mt-4 font-light";
 
             postBox.appendChild(titleElement);
             postBox.appendChild(contentElement);
