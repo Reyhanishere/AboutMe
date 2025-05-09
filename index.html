@@ -106,7 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const postBox = document.createElement("div");
         postBox.className = "rounded-xl p-4 my-3 border-[3px] shadow-lg";
         postBox.style.backgroundColor = data.color;
-        postBox.style.borderColor = data.color;
+        postBox.style.borderColor = data.color
+        postBox.style.backgroundImage = data.background;
+        
 
         const titleElement = document.createElement("h3");
         titleElement.innerHTML = "Title: " + data.title; // Using innerHTML to handle HTML in title
